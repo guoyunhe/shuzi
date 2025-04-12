@@ -1,11 +1,11 @@
-import { shuzi } from '.';
+import { NumberFormat } from '.';
 
-describe('shuzi', () => {
-  it('normal', async () => {
-    expect(shuzi('Foo', 'Bar')).toBe('Foo Bar');
-  });
-
-  it('lastName upper case', async () => {
-    expect(shuzi('Foo', 'Bar', { lastNameUpperCase: true })).toBe('Foo BAR');
+describe('NumberFormat', () => {
+  describe('zh-CN-small', () => {
+    it('format currency', () => {
+      expect(new NumberFormat('zh-CN-small', { style: 'currency' }).format(12345.67)).toBe(
+        '一万二千三百四十五元六角七分',
+      );
+    });
   });
 });
