@@ -23,7 +23,7 @@ import { NumberFormat } from 'shuzi';
 new NumberFormat('zh-CN-small').format(12345.67); // 一万二千三百四十五点六七
 ```
 
-### Chinese small script number | 中文小写金额
+### Chinese small script currency | 中文小写金额
 
 ```js
 import { NumberFormat } from 'shuzi';
@@ -31,12 +31,20 @@ import { NumberFormat } from 'shuzi';
 new NumberFormat('zh-CN-small', { style: 'currency' }).format(12345.67); // 一万二千三百四十五元六角七分
 ```
 
+### Chinese big script number | 中文大写数字
+
+```js
+import { NumberFormat } from 'shuzi';
+
+new NumberFormat('zh-CN-big').format(12345.67); // 壹万贰仟叁佰肆拾伍点陆柒
+```
+
 ### Chinese big script currency | 中文大写金额
 
 ```js
 import { NumberFormat } from 'shuzi';
 
-new NumberFormat('zh-CN-big').format(12345.67); // 壹万贰仟叁佰肆拾伍圆陆角柒分
+new NumberFormat('zh-CN-big', { style: 'currency' }).format(12345.67); // 壹万贰仟叁佰肆拾伍圆陆角柒分
 ```
 
 ## Acknowledge | 致谢
