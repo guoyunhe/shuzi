@@ -51,7 +51,7 @@ new NumberFormat('zh-CN-big', { style: 'currency' }).format(12345.67); // 壹万
 
 This project is based on the following open-source projects | 本项目基于以下开源项目：
 
-- [nzh](https://github.com/cnwhy/nzh) by [cnwhy](https://github.com/cnwhy)
-- [number2chinesenumber](https://github.com/wansongtao/chinese-number) by [wansongtao](https://github.com/wansongtao)
+- [nzh](https://github.com/cnwhy/nzh) by [@cnwhy](https://github.com/cnwhy)
+- [number2chinesenumber](https://github.com/wansongtao/chinese-number) by [@wansongtao](https://github.com/wansongtao)
 
 [Intl.NumberFormat]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
