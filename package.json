@@ -41,9 +41,9 @@
     "lint:fix": "prettier --write . && eslint --fix .",
     "prepare": "husky",
     "start": "rive start",
-    "test": "rive test",
-    "test:ui": "rive test --ui",
-    "test:watch": "rive test --watch"
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest"
   },
   "lint-staged": {
     "*.{cjs,cts,js,jsx,mjs,mts,ts,tsx,vue}": "eslint --fix",
@@ -55,6 +55,7 @@
     "@types/node": "^20.17.30",
     "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.6",
+    "@vitest/ui": "^3.1.1",
     "eslint": "^9.24.0",
     "eslint-config-ali": "^16.1.1",
     "eslint-config-prettier": "^10.1.2",
@@ -67,7 +68,8 @@
     "react-doc-ui": "^2.3.0",
     "react-dom": "^18.3.1",
     "rive": "^3.0.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.1"
   },
   "rive": {
     "template": "base",
