@@ -47,6 +47,23 @@ import { NumberFormat } from 'shuzi';
 new NumberFormat('zh-CN-big', { style: 'currency' }).format(12345.67); // 壹万贰仟叁佰肆拾伍圆陆角柒分
 ```
 
+## FAQ | 常见问题
+
+### Why not Intl.NumberFormat? | 为什么不用 Intl.NumberFormat?
+
+[Intl.NumberFormat] can only replace 0-9 with 〇-九, different from Chinese decimal used in financial
+systems. | [Intl.NumberFormat] 只能简单地将 0-9 替换成 〇-九，和金融系统中使用的中文十进制有很大区别。
+
+```js
+new Intl.NumberFormat('zh-Hans-CN-u-nu-hanidec').format(123456.789);
+// 一二三,四五六.七八九
+
+new Intl.NumberFormat('zh-Hans-CN-u-nu-hanidec', { style: 'currency', currency: 'CNY' }).format(
+  123456.789,
+);
+// ¥一二三,四五六.七九
+```
+
 ## Acknowledge | 致谢
 
 This project is based on the following open-source projects | 本项目基于以下开源项目：
