@@ -3,9 +3,9 @@ import { NumberFormat } from '.';
 describe('NumberFormat', () => {
   describe('zh-CN-small', () => {
     describe('number style', () => {
-      it('format integer', () => {
-        const nm = new NumberFormat('zh-CN-small');
+      const nm = new NumberFormat('zh-CN-small');
 
+      it('format integer', () => {
         expect(nm.format(0)).toBe('零');
         expect(nm.format(1)).toBe('一');
 
@@ -27,8 +27,6 @@ describe('NumberFormat', () => {
       });
 
       it('format decimal', () => {
-        const nm = new NumberFormat('zh-CN-small');
-
         expect(nm.format(0.1)).toBe('零点一');
         expect(nm.format(1.2)).toBe('一点二');
         expect(nm.format(1.03)).toBe('一点零三');
@@ -37,10 +35,19 @@ describe('NumberFormat', () => {
     });
 
     describe('currency style', () => {
-      it('format integer', () => {
-        const nm = new NumberFormat('zh-CN-small', { style: 'currency' });
+      const nm = new NumberFormat('zh-CN-small', { style: 'currency' });
 
-        expect(nm.format(12345)).toBe('一万二千三百四十五元');
+      it('format integer', () => {
+        expect(nm.format(0)).toBe('零元整');
+        expect(nm.format(12345)).toBe('一万二千三百四十五元整');
+      });
+
+      it('format decimal', () => {
+        expect(nm.format(0.01)).toBe('一分');
+        expect(nm.format(0.1)).toBe('一角');
+        expect(nm.format(0.12)).toBe('一角二分');
+        expect(nm.format(123.05)).toBe('一百二十三元零五分');
+        expect(nm.format(123.45)).toBe('一百二十三元四角五分');
       });
     });
   });

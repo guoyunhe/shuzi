@@ -4,8 +4,10 @@
 - Support four writting scripts | 支持四种书写格式:
   - `zh-CN-small` (简体小写)
   - `zh-CN-big` (简体大写)
-  - `zh-TW-small` (繁体小写)
-  - `zh-TW-big` (繁体大写)
+  - `zh-TW-small` (香港繁体小写)
+  - `zh-TW-big` (香港繁体大写)
+  - `zh-TW-small` (台湾繁体小写)
+  - `zh-TW-big` (台湾繁体大写)
 
 ## Install | 安装
 

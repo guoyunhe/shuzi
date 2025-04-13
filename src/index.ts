@@ -6,13 +6,21 @@ export interface NumberFormatOptions {
 }
 
 const SCRIPTS: Record<Locale, string> = {
-  'zh-CN-small': '零一二三四五六七八九十百千万亿点负元角分厘毫',
-  'zh-CN-big': '零壹贰叁肆伍陆柒捌玖拾佰仟万亿点负元角分厘毫',
-  'zh-TW-small': '零一二三四五六七八九十百千万亿点负元角分厘毫',
-  'zh-TW-big': '零壹贰叁肆伍陆柒捌玖拾佰仟万亿点负元角分厘毫',
+  'zh-CN-small': '零一二三四五六七八九十百千万亿点负元整角分厘毫',
+  'zh-CN-big': '零壹贰叁肆伍陆柒捌玖拾佰仟万亿点负元整角分厘毫',
+  'zh-HK-small': '零一二三四五六七八九十百千萬億點負元整角分厘毫',
+  'zh-HK-big': '零壹貳參肆伍陸柒捌玖拾佰仟萬億點負圓整角分厘毫',
+  'zh-TW-small': '零一二三四五六七八九十百千萬億點負元整角分厘毫',
+  'zh-TW-big': '零壹貳參肆伍陸柒捌玖拾佰仟萬億點負圓整角分厘毫',
 };
 
-export type Locale = 'zh-CN-small' | 'zh-CN-big' | 'zh-TW-small' | 'zh-TW-big';
+export type Locale =
+  | 'zh-CN-small'
+  | 'zh-CN-big'
+  | 'zh-HK-small'
+  | 'zh-HK-big'
+  | 'zh-TW-small'
+  | 'zh-TW-big';
 
 export class NumberFormat {
   private script: string;
@@ -35,10 +43,19 @@ export class NumberFormat {
     let output = this._formatSignificant(significant);
 
     if (this.options?.style === 'currency') {
-      // 「元」
-      output += this.script[17];
+      if (significant === '0' && fragment) {
+        // 大于零元，小于一元的情况
+        output = '';
+      } else {
+        // 「元」
+        output += this.script[17];
+      }
       if (fragment) {
-        output += this._formatFragmentCurrency(fragment);
+        // 「角、分、厘、毫」
+        output += this._formatFragmentCurrency(fragment, significant);
+      } else {
+        // 「整」
+        output += this.script[18];
       }
     } else if (fragment) {
       // 「点」
@@ -121,7 +138,8 @@ export class NumberFormat {
   private _formatFragment(value: string) {
     let output = '';
     for (let i = 0; i < value.length; i++) {
-      output += this.script[Number(value[i])];
+      const digit = Number(value[i]);
+      output += this.script[digit];
     }
     return output;
   }
@@ -129,10 +147,19 @@ export class NumberFormat {
   /**
    * 金额小数部分格式化
    */
-  private _formatFragmentCurrency(value: string) {
+  private _formatFragmentCurrency(value: string, significant: string) {
     let output = '';
     for (let i = 0; i < value.length; i++) {
-      output += this.script[Number(value[i])] + this.script[18 + i];
+      const digit = Number(value[i]);
+      if (digit === 0) {
+        // 合并连续的「零」，移除开头的「零」
+        if (output.endsWith(this.script[0]) || (significant === '0' && !output)) {
+          continue;
+        }
+        output += this.script[0];
+      } else {
+        output += this.script[digit] + this.script[19 + i];
+      }
     }
     return output;
   }
