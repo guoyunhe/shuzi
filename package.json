@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "Chinese Number Format | 中文数字格式",
   "keywords": [
+    "中文数字",
     "中文小写数字",
     "中文大写数字",
     "发票",
-    "金额"
+    "金额",
+    "数字转中文",
+    "数字转金额"
   ],
   "homepage": "https://github.com/guoyunhe/shuzi#readme",
   "bugs": {
