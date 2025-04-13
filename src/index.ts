@@ -1,8 +1,16 @@
 export interface NumberFormatOptions {
   /**
-   * @default 'number'
+   * @default 'decimal'
    */
-  style?: 'number' | 'currency';
+  style?: 'decimal' | 'currency';
+  /**
+   * The maximum number of fraction digits to use. The default for plain number formatting is 3 and
+   * possible values from 0 to 100. The default for currency formatting is 2 and possible values
+   * from 0 to 4.
+   *
+   * 最大小数位长度。普通数字默认值为 3，取值范围 0-100。货币金额默认值为 2，取值范围 0-4。
+   */
+  maximumFractionDigits?: number;
 }
 
 const SCRIPTS: Record<Locale, string> = {
@@ -24,12 +32,19 @@ export type Locale =
 
 export class NumberFormat {
   private script: string;
+  private intl: Intl.NumberFormat;
 
   constructor(
     private locale: Locale,
     private options?: NumberFormatOptions,
   ) {
     this.script = SCRIPTS[locale];
+    this.intl = new Intl.NumberFormat('en-US', {
+      style: 'decimal',
+      maximumFractionDigits:
+        options?.maximumFractionDigits || (options?.style === 'currency' ? 2 : 3),
+      useGrouping: false,
+    });
   }
 
   format(value: number | string): string {
@@ -38,7 +53,7 @@ export class NumberFormat {
     }
 
     const num = Number(value);
-    const [significant, fragment] = String(Math.abs(num)).split('.');
+    const [significant, fragment] = this.intl.format(Math.abs(num)).split('.');
 
     let output = this._formatSignificant(significant);
 
