@@ -92,6 +92,7 @@ describe('NumberFormat', () => {
       it('format integer', () => {
         expect(nm.format(0)).toBe('零元整');
         expect(nm.format(12345)).toBe('壹万贰仟叁佰肆拾伍元整');
+        expect(nm.format(300000000)).toBe('叁亿元整');
       });
 
       it('format decimal', () => {

@@ -101,24 +101,26 @@ export class NumberFormat {
 
     let output = '';
     for (let i = 0; i < value.length / 4; i++) {
-      switch (i) {
-        // 「万」
-        case 3:
-        case 1:
-          output = this.script[13] + output;
-          break;
-        // 「亿」
-        case 2:
-          output = this.script[14] + output;
-          break;
-        default:
-          break;
-      }
+      const group = this._formatSignificantGroup(
+        value.substring(value.length - (i + 1) * 4, value.length - i * 4),
+      );
 
-      output =
-        this._formatSignificantGroup(
-          value.substring(value.length - (i + 1) * 4, value.length - i * 4),
-        ) + output;
+      if (group) {
+        // 添加「万、亿」后缀
+        switch (i) {
+          // 「万」
+          case 3:
+          case 1:
+            output = group + this.script[13] + output;
+            break;
+          // 「亿」
+          case 2:
+            output = group + this.script[14] + output;
+            break;
+          default:
+            output = group + output;
+        }
+      }
     }
 
     return output;
